@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "944076597281",
+    "firebase_url": "https://stagecoach-marshmallow-91e81-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "stagecoach-marshmallow-91e81",
+    "storage_bucket": "stagecoach-marshmallow-91e81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944076597281:android:7ec9f73c7cff002aa19b60",
+        "android_client_info": {
+          "package_name": "uk.ac.tees.scedt.b1055988.stagecoach_marshmallow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944076597281-v0hjfb1vd5hbrrm16an97rksmfaets7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP3BuqWrUAvpmSXh8hqW3COzofeSVZPR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944076597281-v0hjfb1vd5hbrrm16an97rksmfaets7f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
