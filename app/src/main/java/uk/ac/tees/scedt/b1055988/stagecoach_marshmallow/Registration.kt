@@ -25,6 +25,16 @@ class Registration : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var textView: TextView
 
+    override fun onStart() {
+        super.onStart()
+        val currentUser = mAuth.currentUser
+        if (currentUser != null) {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
@@ -71,7 +81,7 @@ class Registration : AppCompatActivity() {
                             ).show()
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                            Log.w(TAG, "createUserWithEmailAndPassword:failure", task.exception)
                             Toast.makeText(
                                 this@Registration, "Authentication failed.",
                                 Toast.LENGTH_SHORT
@@ -89,15 +99,11 @@ class Registration : AppCompatActivity() {
         progressBar.visibility = View.GONE
     }
 
-    private fun updateUI(user: FirebaseUser?) {
-        // Update the UI based on the signed-in user
-        // You can add your own implementation here
-    }
-
     companion object {
         private const val TAG = "Registration"
     }
 }
+
 
 
 
