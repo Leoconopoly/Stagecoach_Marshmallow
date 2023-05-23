@@ -14,7 +14,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class Registration : AppCompatActivity() {
 
@@ -24,17 +23,6 @@ class Registration : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var mAuth: FirebaseAuth
     private lateinit var textView: TextView
-
-    override fun onStart() {
-        super.onStart()
-        val currentUser = mAuth.currentUser
-        if (currentUser != null) {
-            // If user is already authenticated, redirect to MainActivity
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,8 +72,12 @@ class Registration : AppCompatActivity() {
                                 this@Registration, "Account Created.",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            mAuth.signOut() // Log out the user after registration
+                            val intent = Intent(applicationContext, Login::class.java)
+                            startActivity(intent)
+                            finish()
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If sign up fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmailAndPassword:failure", task.exception)
                             Toast.makeText(
                                 this@Registration, "Authentication failed.",
@@ -108,6 +100,7 @@ class Registration : AppCompatActivity() {
         private const val TAG = "Registration"
     }
 }
+
 
 
 
