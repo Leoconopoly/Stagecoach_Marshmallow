@@ -49,14 +49,29 @@ class Registration : AppCompatActivity() {
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
 
-            if (TextUtils.isEmpty(email)){
-                Toast.makeText(this@Registration, "Enter email", Toast.LENGTH_SHORT).show()
+            if (TextUtils.isEmpty(email)) {
+                Toast.makeText(this@Registration, "Enter email", Toast.LENGTH_SHORT)
+                    .show()
                 hideProgressBar()
                 return@setOnClickListener
             }
 
-            if (TextUtils.isEmpty(password)){
-                Toast.makeText(this@Registration, "Enter password", Toast.LENGTH_SHORT).show()
+            if (TextUtils.isEmpty(password)) {
+                Toast.makeText(this@Registration, "Enter password", Toast.LENGTH_SHORT)
+                    .show()
+                hideProgressBar()
+                return@setOnClickListener
+            }
+
+            // Validate password criteria
+            val passwordPattern = "(?=.*[A-Z])(?=.*[!@#\$%^&*()_+=])(?=\\S+\$).{6,15}".toRegex()
+            if (!passwordPattern.matches(password)) {
+                // Password doesn't meet the criteria
+                Toast.makeText(
+                    this@Registration,
+                    "Password should be 6-15 characters long, with at least one capital letter and one special character.",
+                    Toast.LENGTH_SHORT
+                ).show()
                 hideProgressBar()
                 return@setOnClickListener
             }
@@ -78,7 +93,8 @@ class Registration : AppCompatActivity() {
                             finish()
                         } else {
                             // If sign up fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmailAndPassword:failure", task.exception)
+                            Log.w(TAG, "createUserWithEmailAndPassword:failure", task
+                                .exception)
                             Toast.makeText(
                                 this@Registration, "Authentication failed.",
                                 Toast.LENGTH_SHORT
