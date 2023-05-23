@@ -29,6 +29,7 @@ class Registration : AppCompatActivity() {
         super.onStart()
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
+            // If user is already authenticated, redirect to MainActivity
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -45,13 +46,16 @@ class Registration : AppCompatActivity() {
         buttonReg = findViewById(R.id.btn_register)
         progressBar = findViewById(R.id.progressBar)
         textView = findViewById(R.id.loginNow)
+
         textView.setOnClickListener {
+            // Click listener for "Login Now" TextView
             val intent = Intent(applicationContext, Login::class.java)
             startActivity(intent)
             finish()
         }
 
         buttonReg.setOnClickListener {
+            // Click listener for registration button
             showProgressBar()
 
             val email = editTextEmail.text.toString()
@@ -75,6 +79,7 @@ class Registration : AppCompatActivity() {
                         hideProgressBar()
 
                         if (task.isSuccessful) {
+                            // Registration successful
                             Toast.makeText(
                                 this@Registration, "Account Created.",
                                 Toast.LENGTH_SHORT

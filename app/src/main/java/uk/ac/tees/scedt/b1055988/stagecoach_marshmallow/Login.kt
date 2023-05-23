@@ -30,6 +30,7 @@ class Login : AppCompatActivity() {
         super.onStart()
         val currentUser = mAuth.currentUser
         if (currentUser != null) {
+            // If user is already authenticated, redirect to MainActivity
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -46,13 +47,16 @@ class Login : AppCompatActivity() {
         buttonLogin = findViewById(R.id.btn_login)
         progressBar = findViewById(R.id.progressBar)
         textView = findViewById(R.id.registerNow)
+
         textView.setOnClickListener {
+            // Click listener for "Register Now" TextView
             val intent = Intent(applicationContext, Registration::class.java)
             startActivity(intent)
             finish()
         }
 
         buttonLogin.setOnClickListener {
+            // Click listener for login button
             progressBar.visibility = View.VISIBLE
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
@@ -73,11 +77,13 @@ class Login : AppCompatActivity() {
                 .addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
                     progressBar.visibility = View.GONE
                     if (task.isSuccessful) {
+                        // Login successful
                         Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT).show()
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
+                        // If login fails, display a message to the user
                         Toast.makeText(this@Login, "Authentication failed.", Toast.LENGTH_SHORT).show()
                     }
                 })
