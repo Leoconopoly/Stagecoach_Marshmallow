@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddCourses : AppCompatActivity() {
@@ -51,13 +52,57 @@ class AddCourses : AppCompatActivity() {
 
         val addCourseButton: Button = findViewById(R.id.add_course)
         addCourseButton.setOnClickListener {
-            val title = courseTitleInput.text.toString()
-            val location = locationInput.text.toString()
-            val cost = costInput.text.toString()
-            val date = dateInput.text.toString()
+            val title = courseTitleInput.text.toString().trim()
+            val location = locationInput.text.toString().trim()
+            val cost = costInput.text.toString().trim()
+            val date = dateInput.text.toString().trim()
             val numOfClasses = numOfClassesInput.value
 
-            // validate your inputs here...
+            if (title.isEmpty() || title.length > 50) {
+                courseTitleInput.error = "Course Title is required and should be less than 50 characters"
+                courseTitleInput.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (location.isEmpty() || location.length > 50) {
+                locationInput.error = "Location is required and should be less than 50 characters"
+                locationInput.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (cost.isEmpty()) {
+                costInput.error = "Cost is required"
+                costInput.requestFocus()
+                return@setOnClickListener
+            } else {
+                try {
+                    val costAsDouble = cost.toDouble()
+                    if (costAsDouble < 0) {
+                        costInput.error = "Cost should not be negative"
+                        costInput.requestFocus()
+                        return@setOnClickListener
+                    }
+                } catch (e: NumberFormatException) {
+                    costInput.error = "Please enter a valid cost"
+                    costInput.requestFocus()
+                    return@setOnClickListener
+                }
+            }
+
+            if (date.isEmpty()) {
+                dateInput.error = "Date is required"
+                dateInput.requestFocus()
+                return@setOnClickListener
+            } else {
+                // Add logic to validate the date (it should not be in the past)
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                val selectedDate = sdf.parse(date)
+                if (selectedDate.before(Calendar.getInstance().time)) {
+                    dateInput.error = "Date should not be in the past"
+                    dateInput.requestFocus()
+                    return@setOnClickListener
+                }
+            }
 
             // Create a Course object
             val course = Course(title, location, cost, date, numOfClasses)
@@ -85,3 +130,4 @@ data class Course(
     var date: String? = null,
     var numOfClasses: Int? = null
 )
+
