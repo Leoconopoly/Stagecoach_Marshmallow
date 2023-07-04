@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val addCoursesButton: Button = findViewById(R.id.course_add_screen)
-        coursesButton.setOnClickListener {
+        addCoursesButton.setOnClickListener {
             val intent = Intent(this, AddCourses::class.java)
             startActivity(intent)
         }

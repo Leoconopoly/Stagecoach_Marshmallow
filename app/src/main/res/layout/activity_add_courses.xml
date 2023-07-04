@@ -46,29 +46,50 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_gbp"> <!-- Use your own drawable here -->
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/CostOfCourse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Course Cost"
+            android:inputType="numberDecimal"
             tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/DateOfCourse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Course Date"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:focusable="false"
+            android:hint="Course Start Date"
+            android:clickable="true"
+            android:inputType="date" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Number of Classes:"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <NumberPicker
+        android:id="@+id/num_classes"
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:layout_gravity="center"
+        android:descendantFocusability="blocksDescendants" />
 
     <ProgressBar
         android:id="@+id/progressBar"
