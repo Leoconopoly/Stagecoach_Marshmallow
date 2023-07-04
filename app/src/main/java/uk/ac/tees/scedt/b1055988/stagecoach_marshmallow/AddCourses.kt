@@ -43,7 +43,8 @@ class AddCourses : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
-                    dateInput.setText("$selectedDay/${selectedMonth + 1}/$selectedYear")
+                    val formattedDate = formatDate(selectedDay, selectedMonth + 1, selectedYear)
+                    dateInput.setText(formattedDate)
                 },
                 year, month, day
             )
@@ -95,9 +96,9 @@ class AddCourses : AppCompatActivity() {
                 return@setOnClickListener
             } else {
                 // Add logic to validate the date (it should not be in the past)
-                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.UK)
                 val selectedDate = sdf.parse(date)
-                if (selectedDate.before(Calendar.getInstance().time)) {
+                if (selectedDate == null || selectedDate.before(Calendar.getInstance().time)) {
                     dateInput.error = "Date should not be in the past"
                     dateInput.requestFocus()
                     return@setOnClickListener
@@ -120,6 +121,13 @@ class AddCourses : AppCompatActivity() {
             dateInput.text.clear()
             numOfClassesInput.value = 1 // reset to minimum value
         }
+    }
+
+    private fun formatDate(day: Int, month: Int, year: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month - 1, day)
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.UK)
+        return sdf.format(calendar.time)
     }
 }
 
