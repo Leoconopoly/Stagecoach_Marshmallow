@@ -2,7 +2,6 @@ package uk.ac.tees.scedt.b1055988.stagecoach_marshmallow
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     // UI elements
-    private lateinit var button: Button
+    private lateinit var logoutButton: Button
     private lateinit var textView: TextView
 
     // Current user
@@ -29,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         // Initialise UI elements
-        button = findViewById(R.id.logout)
+        logoutButton = findViewById(R.id.logout)
         textView = findViewById(R.id.user_details)
 
         // Get the current user
@@ -46,8 +45,20 @@ class MainActivity : AppCompatActivity() {
             textView.text = user?.email
         }
 
+        val coursesButton: Button = findViewById(R.id.courses)
+        coursesButton.setOnClickListener {
+            val intent = Intent(this, Courses::class.java)
+            startActivity(intent)
+        }
+
+        val addCoursesButton: Button = findViewById(R.id.course_add_screen)
+        coursesButton.setOnClickListener {
+            val intent = Intent(this, AddCourses::class.java)
+            startActivity(intent)
+        }
+
         // Logout button click listener
-        button.setOnClickListener {
+        logoutButton.setOnClickListener {
             // Sign out the user from Firebase Authentication
             FirebaseAuth.getInstance().signOut()
 
@@ -58,3 +69,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+
