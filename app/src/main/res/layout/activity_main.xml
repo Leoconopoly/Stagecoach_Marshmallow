@@ -1,23 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/user_details"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="20sp" />
-    <Button
-        android:text="@string/logout"
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/user_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome!"
+            android:textSize="25sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/courses"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Courses"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/user_details"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/placeholder1"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/placeholder1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="PH1"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/user_details"
+            app:layout_constraintStart_toEndOf="@+id/courses"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"/>
+
+        <!-- Next row -->
+        <Button
+            android:id="@+id/placeholder2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="PH2"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/courses"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/placeholder3"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/placeholder3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="PH3"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/courses"
+            app:layout_constraintStart_toEndOf="@+id/placeholder2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"/>
+
+        <!-- Next row -->
+        <Button
+            android:id="@+id/placeholder4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="PH4"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/placeholder5"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/placeholder5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="PH5"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder2"
+            app:layout_constraintStart_toEndOf="@+id/placeholder4"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"/>
+
+        <!-- Next row -->
+        <Button
+            android:id="@+id/placeholder6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="PH6"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/logout"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Logout"
+            android:textSize="20sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toBottomOf="@+id/placeholder4"
+            app:layout_constraintStart_toEndOf="@+id/placeholder6"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
+
+
+
