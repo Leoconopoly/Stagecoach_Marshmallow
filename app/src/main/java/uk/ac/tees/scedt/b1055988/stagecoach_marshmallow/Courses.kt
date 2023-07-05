@@ -18,7 +18,6 @@ class Courses : AppCompatActivity() {
 
         binding = ActivityCoursesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         database = FirebaseDatabase.getInstance().getReference("courses")
         courseList = ArrayList()
         adapter = CourseAdapter(courseList)
@@ -46,4 +45,6 @@ class Courses : AppCompatActivity() {
         })
     }
 }
+
+
 

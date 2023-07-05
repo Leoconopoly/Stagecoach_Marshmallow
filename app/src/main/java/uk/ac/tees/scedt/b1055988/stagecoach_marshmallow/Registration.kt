@@ -14,11 +14,24 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
+
+data class User(
+    val userId: String? = null,
+    val firstName: String? = null,
+    val lastName: String? = null,
+    val email: String? = null,
+    val phone_number: String? = null
+)
 
 class Registration : AppCompatActivity() {
 
     private lateinit var editTextEmail: TextInputEditText
     private lateinit var editTextPassword: TextInputEditText
+    private lateinit var editTextFirstName: TextInputEditText
+    private lateinit var editTextSurname: TextInputEditText
+    private lateinit var editTextPhoneNumber: TextInputEditText
     private lateinit var buttonReg: Button
     private lateinit var progressBar: ProgressBar
     private lateinit var mAuth: FirebaseAuth
@@ -31,6 +44,9 @@ class Registration : AppCompatActivity() {
 
         editTextEmail = findViewById(R.id.email)
         editTextPassword = findViewById(R.id.password)
+        editTextFirstName = findViewById(R.id.firstname)
+        editTextSurname = findViewById(R.id.surname)
+        editTextPhoneNumber = findViewById(R.id.phone_number)
         buttonReg = findViewById(R.id.btn_register)
         progressBar = findViewById(R.id.progressBar)
         textView = findViewById(R.id.loginNow)
@@ -48,17 +64,60 @@ class Registration : AppCompatActivity() {
 
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
+            val firstName = editTextFirstName.text.toString()
+            val surname = editTextSurname.text.toString()
+            val phoneNumber = editTextPhoneNumber.text.toString()
 
             if (TextUtils.isEmpty(email)) {
-                Toast.makeText(this@Registration, "Enter email", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this@Registration, "Enter email", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             }
 
             if (TextUtils.isEmpty(password)) {
-                Toast.makeText(this@Registration, "Enter password", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this@Registration, "Enter password", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            }
+
+            if (TextUtils.isEmpty(firstName)) {
+                Toast.makeText(this@Registration, "Enter first name", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            } else if (firstName.length < 3 || firstName.length > 25) {
+                Toast.makeText(this@Registration, "First name should be between 3 and 25 characters", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            } else if (!firstName.matches(Regex("^[a-zA-Z]+$"))) {
+                Toast.makeText(this@Registration, "First name should contain letters only", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            }
+
+            if (TextUtils.isEmpty(surname)) {
+                Toast.makeText(this@Registration, "Enter surname", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            } else if (surname.length < 3 || surname.length > 25) {
+                Toast.makeText(this@Registration, "Surname should be between 3 and 25 characters", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            } else if (!surname.matches(Regex("^[a-zA-Z]+$"))) {
+                Toast.makeText(this@Registration, "Surname should contain letters only", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            }
+
+            if (TextUtils.isEmpty(phoneNumber)) {
+                Toast.makeText(this@Registration, "Enter phone number", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            } else if (!phoneNumber.matches(Regex("^\\d+$"))) {
+                Toast.makeText(this@Registration, "Phone number should contain numbers only", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                return@setOnClickListener
+            } else if (phoneNumber.length > 15) {
+                Toast.makeText(this@Registration, "Phone number should not exceed 15 digits", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             }
@@ -83,6 +142,15 @@ class Registration : AppCompatActivity() {
 
                         if (task.isSuccessful) {
                             // Registration successful
+                            val firebaseUser: FirebaseUser? = mAuth.currentUser
+                            val userId: String? = firebaseUser?.uid
+
+                            if (userId != null) {
+                                val user = User(userId, firstName, surname, email, phoneNumber)
+                                // Save user profile to the database
+                                saveUserProfile(userId, user)
+                            }
+
                             Toast.makeText(
                                 this@Registration, "Account Created.",
                                 Toast.LENGTH_SHORT
@@ -93,8 +161,7 @@ class Registration : AppCompatActivity() {
                             finish()
                         } else {
                             // If sign up fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmailAndPassword:failure", task
-                                .exception)
+                            Log.w(TAG, "createUserWithEmailAndPassword:failure", task.exception)
                             Toast.makeText(
                                 this@Registration, "Authentication failed.",
                                 Toast.LENGTH_SHORT
@@ -112,10 +179,18 @@ class Registration : AppCompatActivity() {
         progressBar.visibility = View.GONE
     }
 
+    private fun saveUserProfile(userId: String, user: User) {
+        val database = FirebaseDatabase.getInstance().reference
+        database.child("users").child(userId).setValue(user)
+    }
+
     companion object {
         private const val TAG = "Registration"
     }
 }
+
+
+
 
 
 
