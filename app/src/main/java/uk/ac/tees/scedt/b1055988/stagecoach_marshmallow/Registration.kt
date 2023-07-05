@@ -42,6 +42,7 @@ class Registration : AppCompatActivity() {
         setContentView(R.layout.activity_registration)
         mAuth = FirebaseAuth.getInstance()
 
+        // Initialize UI elements
         editTextEmail = findViewById(R.id.email)
         editTextPassword = findViewById(R.id.password)
         editTextFirstName = findViewById(R.id.firstname)
@@ -69,54 +70,65 @@ class Registration : AppCompatActivity() {
             val phoneNumber = editTextPhoneNumber.text.toString()
 
             if (TextUtils.isEmpty(email)) {
+                // Validate email field
                 Toast.makeText(this@Registration, "Enter email", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             }
 
             if (TextUtils.isEmpty(password)) {
+                // Validate password field
                 Toast.makeText(this@Registration, "Enter password", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             }
 
             if (TextUtils.isEmpty(firstName)) {
+                // Validate first name field
                 Toast.makeText(this@Registration, "Enter first name", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             } else if (firstName.length < 3 || firstName.length > 25) {
+                // Validate first name length
                 Toast.makeText(this@Registration, "First name should be between 3 and 25 characters", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             } else if (!firstName.matches(Regex("^[a-zA-Z]+$"))) {
+                // Validate first name contains letters only
                 Toast.makeText(this@Registration, "First name should contain letters only", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             }
 
             if (TextUtils.isEmpty(surname)) {
+                // Validate surname field
                 Toast.makeText(this@Registration, "Enter surname", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             } else if (surname.length < 3 || surname.length > 25) {
+                // Validate surname length
                 Toast.makeText(this@Registration, "Surname should be between 3 and 25 characters", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             } else if (!surname.matches(Regex("^[a-zA-Z]+$"))) {
+                // Validate surname contains letters only
                 Toast.makeText(this@Registration, "Surname should contain letters only", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             }
 
             if (TextUtils.isEmpty(phoneNumber)) {
+                // Validate phone number field
                 Toast.makeText(this@Registration, "Enter phone number", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             } else if (!phoneNumber.matches(Regex("^\\d+$"))) {
+                // Validate phone number contains numbers only
                 Toast.makeText(this@Registration, "Phone number should contain numbers only", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
             } else if (phoneNumber.length > 15) {
+                // Validate phone number length
                 Toast.makeText(this@Registration, "Phone number should not exceed 15 digits", Toast.LENGTH_SHORT).show()
                 hideProgressBar()
                 return@setOnClickListener
@@ -188,6 +200,7 @@ class Registration : AppCompatActivity() {
         private const val TAG = "Registration"
     }
 }
+
 
 
 
