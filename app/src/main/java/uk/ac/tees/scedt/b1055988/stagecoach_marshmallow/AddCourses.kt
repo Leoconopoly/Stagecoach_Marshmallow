@@ -24,6 +24,7 @@ class AddCourses : AppCompatActivity() {
         // Initialize Firebase database reference
         database = FirebaseDatabase.getInstance().getReference("courses")
 
+        // Initialize UI elements
         val courseTitleInput: EditText = findViewById(R.id.CourseTitle)
         val locationInput: EditText = findViewById(R.id.Location)
         val costInput: EditText = findViewById(R.id.CostOfCourse)
@@ -51,14 +52,17 @@ class AddCourses : AppCompatActivity() {
             datePickerDialog.show()
         }
 
+        // Add course button click listener
         val addCourseButton: Button = findViewById(R.id.add_course)
         addCourseButton.setOnClickListener {
+            // Retrieve input values
             val title = courseTitleInput.text.toString().trim()
             val location = locationInput.text.toString().trim()
             val cost = costInput.text.toString().trim()
             val date = dateInput.text.toString().trim()
             val numOfClasses = numOfClassesInput.value
 
+            // Validate input values
             if (title.isEmpty() || title.length > 50) {
                 courseTitleInput.error = "Course Title is required and should be less than 50 characters"
                 courseTitleInput.requestFocus()
@@ -112,6 +116,7 @@ class AddCourses : AppCompatActivity() {
             // 'push()' method creates a unique id for each new child
             database.push().setValue(course)
 
+            // Show success message
             Toast.makeText(this, "Course added successfully", Toast.LENGTH_LONG).show()
 
             // Clear the inputs
@@ -123,6 +128,7 @@ class AddCourses : AppCompatActivity() {
         }
     }
 
+    // Function to format the date
     private fun formatDate(day: Int, month: Int, year: Int): String {
         val calendar = Calendar.getInstance()
         calendar.set(year, month - 1, day)
@@ -138,4 +144,5 @@ data class Course(
     var date: String? = null,
     var numOfClasses: Int? = null
 )
+
 
